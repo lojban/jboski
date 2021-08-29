@@ -1,0 +1,1 @@
+/opt/lbcs/setup.sh

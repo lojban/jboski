@@ -1,0 +1,6 @@
+description="jboski web container"
+needs_network=true
+name=web
+version=1
+run_args='-v $containerdir/src:/src'
+run_program='/src/start.sh'

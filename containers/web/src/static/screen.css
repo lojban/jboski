@@ -1,0 +1,38 @@
+* { font-family: sans-serif; }
+
+form { position: fixed; }
+.ungrammatical { background: #fcc; }
+#output { padding-top: 4em; }
+
+/* Unused, from visual-camxes */
+.box {
+  text-align: center;
+  display: table-cell; 
+  border-spacing: 1em 0;
+}
+
+.box p { margin: .5em; }
+
+.first { background: #ede5dc; }
+.second { background: #f6eaeb; }
+.third { background: #f9dbdc; }
+.fourth { background: #fff6f2; }
+.fifth { background: #f4e0d4; }
+
+/* FIXME: make this prettier. */
+pre.translationerror {
+    background: #fcc;
+}
+p.small {
+    font-size: small;
+}
+em.sumtiplace {
+    color: maroon;
+    font-size: small;
+}
+sub.parenmark {
+    font-size: xx-small;
+}
+em.translation {
+    color: blue;
+}

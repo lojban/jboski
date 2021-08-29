@@ -1,0 +1,1 @@
+/opt/lbcs/initial_setup.sh

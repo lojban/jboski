@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='screen.css') }}"/>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='hscroll.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='live.js') }}"></script>
+
+    <title>{{ "%s -- " % text if text else "" }}jboski</title>
+</head>
+<body>
+    <form action="{{ url_for('index') }}" method="GET">
+      <p>
+        <input
+          id="input"
+          name="input"
+          value="{{ request.args.get('text') if request.args.get('text') else '' }}"
+          placeholder="coi pilno mi'e jboski"
+          autofocus="autofocus"
+          autocomplete="off"
+          required="required"
+          size="80"
+          class="{{ 'grammatical' if grammatical else 'ungrammatical' }}"
+        />
+        <a href="static/about.html">About</a>
+      </p>
+    </form>
+
+
+    <div id="output">
+        {{ parsed|safe }}
+    </div>
+  </body>
+</html>

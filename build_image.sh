@@ -1,0 +1,1 @@
+/opt/lbcs/build_image.sh

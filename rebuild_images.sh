@@ -1,0 +1,1 @@
+/opt/lbcs/rebuild_images.sh

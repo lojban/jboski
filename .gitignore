@@ -1,0 +1,10 @@
+# Vim
+[._]*.sw[a-p]
+*~
+
+# helps ripgrep not be silly
+.git
+
+*.pyc
+containers/web/Dockerfile
+cron/crontab
