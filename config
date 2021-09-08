@@ -1,2 +1,2 @@
-service=jboski
+bundle=jboski
 pod_args='-p 20180:8080'

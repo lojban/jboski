@@ -1,0 +1,1 @@
+/opt/lbcs/run_addon.sh

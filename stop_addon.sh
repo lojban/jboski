@@ -1,0 +1,1 @@
+/opt/lbcs/stop_addon.sh
