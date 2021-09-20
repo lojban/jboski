@@ -1,0 +1,1 @@
+/opt/lbcs/self_restore_test.sh

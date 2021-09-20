@@ -1,0 +1,1 @@
+/opt/lbcs/self_backup.sh
