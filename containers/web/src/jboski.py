@@ -36,12 +36,25 @@ def parse(text):
     content = content.replace('<SUB><FONT SIZE="-3">', '<sub class="parenmark">')
     content = content.replace('</FONT></SUB>', '</sub>')
     # 🅐
+
+    """
+    # Tried to move the tooltips onto the words themselves, but some words don't have translation asterisks, so that broke things
+    content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace tooltip">*<em class="sumtiplace tooltiptext">')
+    content = content.replace('</FONT></U>', '</em></em>')
+    content = content.replace('<I>', '<em class="translation tooltiptext">')
+    content = content.replace('</I>', '</strong></em></em>')
+    # https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=XYZ
+    content = re.sub('<B>(.*?)</B>', '<strong class="lojban tooltip"><a href="https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=\\1">\\1</a>', content)
+    """
+
     content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace tooltip">*<em class="sumtiplace tooltiptext">')
     content = content.replace('</FONT></U>', '</em></em>')
     content = content.replace('<I>', '<em class="translation tooltip">*<em class="translation tooltiptext">')
     content = content.replace('</I>', '</em></em>')
     # https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=XYZ
     content = re.sub('<B>(.*?)</B>', '<strong class="lojban"><a href="https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=\\1">\\1</a></strong>', content)
+
+
     content = content.replace('&gt;&gt;', '&raquo;')
     content = content.replace('&lt;&lt;', '&laquo;')
     content = content.replace('<P>', '<br />')
