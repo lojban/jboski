@@ -4,7 +4,7 @@ form { position: fixed; }
 .ungrammatical { background: #fcc; }
 #output {
     padding-top: 4em;
-    line-height: 4;
+    /* line-height: 1; */
 }
 
 /* Unused, from visual-camxes */
@@ -33,24 +33,23 @@ em.sumtiplace {
     color: maroon;
     font-size: small;
 }
+span.colornest {
+    display: inline-block;
+    /* height: 3em; */
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    /* transform: translate(0px, 10px); */
+}
 span.colornest_square {
     background-color: #FF000020;
-    height: 3em;
-    padding-top: 1em;
-    padding-bottom: 1em;
 }
 span.colornest_round {
     background-color: #00FF0020;
-    /*background-color: #FF000040;*/
-    height: 3em;
-    padding-top: 1em;
-    padding-bottom: 1em;
 }
 span.colornest_angle {
     background-color: #0000FF20;
-    height: 3em;
-    padding-top: 1em;
-    padding-bottom: 1em;
 }
 sub.parenmark {
     font-size: xx-small;

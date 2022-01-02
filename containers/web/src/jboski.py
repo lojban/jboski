@@ -45,11 +45,11 @@ def parse(text):
     content = content.replace('&gt;&gt;', '&raquo;')
     content = content.replace('&lt;&lt;', '&laquo;')
     content = content.replace('<P>', '<br />')
-    content = content.replace('[', '[<span class="colornest_square">')
+    content = content.replace('[', '[<span class="colornest colornest_square">')
     content = content.replace(']', '</span>]')
-    content = content.replace('(', '(<span class="colornest_round">')
+    content = content.replace('(', '(<span class="colornest colornest_round">')
     content = content.replace(')', '</span>)')
-    content = content.replace('&lt;', '&lt;<span class="colornest_angle">')
+    content = content.replace('&lt;', '&lt;<span class="colornest colornest_angle">')
     content = content.replace('&gt;', '</span>&gt;')
     
     return True, content
