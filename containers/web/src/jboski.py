@@ -19,7 +19,7 @@ app.logger.addHandler(stream_handler)
 #
 # The actual substitutions we do here came from the original jboski
 # https://lojban.org/jboski/index.php.txt by Raphaël Poss <r.poss@online.fr>
-def parse(text):
+def parse(text, mode):
     
     p = Popen("jbofihe -H", shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
     p.stdin.write(text.encode())
@@ -64,16 +64,21 @@ def parse(text):
     content = content.replace(')', '</span>)')
     content = content.replace('&lt;', '&lt;<span class="colornest colornest_angle">')
     content = content.replace('&gt;', '</span>&gt;')
+    content = content + "<br/>(mode: " + mode + ")"
     
     return True, content
+
+def asdf():
+    "asdfasdf"
 
 @app.route('/')
 def index():
     text = request.args.get('text', "coi pilno mi'e jboski")
+    mode = request.args.get('mode', "contracted")
     grammatical = False
     parsed = ''
     try:
-        grammatical, parsed = parse(text)
+        grammatical, parsed = parse(text, mode)
     except Exception as e:
         import traceback
         return "<pre>Exception thrown: " + "\n".join(traceback.format_exception(None, e, e.__traceback__)) + "</pre>"
