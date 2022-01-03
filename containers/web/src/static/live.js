@@ -25,12 +25,18 @@ var ajaxRequest = null;
 
 $(document).ready(function() {
   
-  $("#input").keyup( debounce( function() {
-
+  let refresh = function() {
     if (ajaxRequest) ajaxRequest.abort();
 
     var jboText = $("#input").val();
-    ajaxRequest = $.getJSON("", { text: jboText, json: true }, function(json) {
+    var mode = $("#mode").val();
+    let params;
+    if (jboText) {
+      params = { mode: mode, text: jboText, json: true };
+    } else {
+      params = { mode: mode, json: true };
+    }
+    ajaxRequest = $.getJSON("", params, function(json) {
       $("#output").html(json.html);
       
       if (json.grammatical) {
@@ -40,7 +46,11 @@ $(document).ready(function() {
         if (typeof(window.history) !== "undefined") {
           var link = $("<a/>")[0];
           link.href = window.location.href;
-          link.search = "?text=" + escape(jboText);
+          if (jboText) {
+            link.search = "?mode=" + escape(mode) + "&text=" + escape(jboText);
+          } else {
+            link.search = "?mode=" + escape(mode);
+          }
 
           var title = jboText + " -- jboski";
           history.replaceState(null, title, link.href);
@@ -50,7 +60,10 @@ $(document).ready(function() {
         $("#input").removeClass("grammatical");
       }
     });
-  }, 500, false));
+  };
+
+  $("#input").keyup(debounce(refresh, 500, false));
+  $("#mode").change(refresh);
 });
 
 })(jQuery);

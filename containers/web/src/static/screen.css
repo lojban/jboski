@@ -2,7 +2,10 @@
 
 form { position: fixed; }
 .ungrammatical { background: #fcc; }
-#output { padding-top: 4em; }
+#output {
+    padding-top: 5em;
+    /* line-height: 1; */
+}
 
 /* Unused, from visual-camxes */
 .box {
@@ -30,9 +33,59 @@ em.sumtiplace {
     color: maroon;
     font-size: small;
 }
+span.colornest {
+    display: inline-block;
+    /* height: 3em; */
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    /* transform: translate(0px, 10px); */
+}
+span.colornest_square {
+    background-color: #FF000020;
+}
+span.colornest_round {
+    background-color: #00FF0020;
+}
+span.colornest_angle {
+    background-color: #0000FF20;
+}
 sub.parenmark {
     font-size: xx-small;
 }
 em.translation {
     color: blue;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  /* width: 120px; */
+  background-color: white;
+  /* color: black; */
+  text-align: center;
+  border-radius: 6px;
+  border: green;
+  border-style: solid;
+  padding: 5px 0;
+  /* margin-left: 0%; */
+  /* left: 0em; */
+  transform: translate(-50% , 0%);
+  top: 2.75em;
+  line-height: 1;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
