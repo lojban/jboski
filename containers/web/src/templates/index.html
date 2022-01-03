@@ -30,8 +30,10 @@
       <p>
         <label for="mode">Mode:</label>
         <select name="mode" id="mode" required="required" selected="condensed">
+          <option value="plain" {{ ('selected' if request.args.get('mode') == 'plain' else '') if request.args.get('mode') else '' }}>plain</option>
           <option value="expanded" {{ ('selected' if request.args.get('mode') == 'expanded' else '') if request.args.get('mode') else '' }}>expanded</option>
           <option value="condensed" {{ ('selected' if request.args.get('mode') == 'condensed' else '') if request.args.get('mode') else 'selected' }}>condensed</option>
+          <option value="condensed_robust" {{ ('selected' if request.args.get('mode') == 'condensed_robust' else '') if request.args.get('mode') else '' }}>condensed (robust)</option>
         </select>
       </p>
     </form>
