@@ -3,7 +3,7 @@
 form { position: fixed; }
 .ungrammatical { background: #fcc; }
 #output {
-    padding-top: 4em;
+    padding-top: 5em;
     /* line-height: 1; */
 }
 

@@ -29,9 +29,9 @@
       </p>
       <p>
         <label for="mode">Mode:</label>
-        <select name="mode" id="mode" required="required" selected="contracted">
+        <select name="mode" id="mode" required="required" selected="condensed">
           <option value="expanded" {{ ('selected' if request.args.get('mode') == 'expanded' else '') if request.args.get('mode') else '' }}>expanded</option>
-          <option value="contracted" {{ ('selected' if request.args.get('mode') == 'contracted' else '') if request.args.get('mode') else 'selected' }}>contracted</option>
+          <option value="condensed" {{ ('selected' if request.args.get('mode') == 'condensed' else '') if request.args.get('mode') else 'selected' }}>condensed</option>
         </select>
       </p>
     </form>

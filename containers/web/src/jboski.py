@@ -30,42 +30,60 @@ def parse(text, mode):
     if len(child_stderr) > 0:
         return False, '<pre class="translationerror">' + child_stderr.decode() + '</pre>'
     
-    content = child_stdout.decode()
-    content = re.sub(r'^.*<BODY>\s*\n', '', content, flags=re.DOTALL)
-    content = re.sub(r'</BODY>\s*$', '', content, flags=re.DOTALL)
-    content = content.replace('<SUB><FONT SIZE="-3">', '<sub class="parenmark">')
-    content = content.replace('</FONT></SUB>', '</sub>')
-    # 🅐
+    if mode == "condensed":
+        # Condensed
+        content = child_stdout.decode()
+        content = re.sub(r'^.*<BODY>\s*\n', '', content, flags=re.DOTALL)
+        content = re.sub(r'</BODY>\s*$', '', content, flags=re.DOTALL)
+        content = content.replace('<SUB><FONT SIZE="-3">', '<sub class="parenmark">')
+        content = content.replace('</FONT></SUB>', '</sub>')
+ 
+        """
+        # Tried to move the tooltips onto the words themselves, but some words don't have translation asterisks, so that broke things
+        content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace tooltip">*<em class="sumtiplace tooltiptext">')
+        content = content.replace('</FONT></U>', '</em></em>')
+        content = content.replace('<I>', '<em class="translation tooltiptext">')
+        content = content.replace('</I>', '</strong></em></em>')
+        # https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=XYZ
+        content = re.sub('<B>(.*?)</B>', '<strong class="lojban tooltip"><a href="https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=\\1">\\1</a>', content)
+        """
 
-    """
-    # Tried to move the tooltips onto the words themselves, but some words don't have translation asterisks, so that broke things
-    content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace tooltip">*<em class="sumtiplace tooltiptext">')
-    content = content.replace('</FONT></U>', '</em></em>')
-    content = content.replace('<I>', '<em class="translation tooltiptext">')
-    content = content.replace('</I>', '</strong></em></em>')
-    # https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=XYZ
-    content = re.sub('<B>(.*?)</B>', '<strong class="lojban tooltip"><a href="https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=\\1">\\1</a>', content)
-    """
-
-    content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace tooltip">*<em class="sumtiplace tooltiptext">')
-    content = content.replace('</FONT></U>', '</em></em>')
-    content = content.replace('<I>', '<em class="translation tooltip">*<em class="translation tooltiptext">')
-    content = content.replace('</I>', '</em></em>')
-    # https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=XYZ
-    content = re.sub('<B>(.*?)</B>', '<strong class="lojban"><a href="https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=\\1">\\1</a></strong>', content)
+        content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace tooltip">*<em class="sumtiplace tooltiptext">')
+        content = content.replace('</FONT></U>', '</em></em>')
+        content = content.replace('<I>', '<em class="translation tooltip">*<em class="translation tooltiptext">')
+        content = content.replace('</I>', '</em></em>')
+        # https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=XYZ
+        content = re.sub('<B>(.*?)</B>', '<strong class="lojban"><a href="https://la-lojban.github.io/sutysisku/lojban/index.html#sisku=\\1">\\1</a></strong>', content)
 
 
-    content = content.replace('&gt;&gt;', '&raquo;')
-    content = content.replace('&lt;&lt;', '&laquo;')
-    content = content.replace('<P>', '<br />')
-    content = content.replace('[', '[<span class="colornest colornest_square">')
-    content = content.replace(']', '</span>]')
-    content = content.replace('(', '(<span class="colornest colornest_round">')
-    content = content.replace(')', '</span>)')
-    content = content.replace('&lt;', '&lt;<span class="colornest colornest_angle">')
-    content = content.replace('&gt;', '</span>&gt;')
-    content = content + "<br/>(mode: " + mode + ")"
+        content = content.replace('&gt;&gt;', '&raquo;')
+        content = content.replace('&lt;&lt;', '&laquo;')
+        content = content.replace('<P>', '<br />')
+        content = content.replace('[', '[<span class="colornest colornest_square">')
+        content = content.replace(']', '</span>]')
+        content = content.replace('(', '(<span class="colornest colornest_round">')
+        content = content.replace(')', '</span>)')
+        content = content.replace('&lt;', '&lt;<span class="colornest colornest_angle">')
+        content = content.replace('&gt;', '</span>&gt;')
+        #content = content + "<br/>(mode: " + mode + ")"
+    else:
+        # Expanded
+        content = child_stdout.decode()
+        content = re.sub(r'^.*<BODY>\s*\n', '', content, flags=re.DOTALL)
+        content = re.sub(r'</BODY>\s*$', '', content, flags=re.DOTALL)
+        content = content.replace('<SUB><FONT SIZE="-3">', '<sub class="parenmark">')
+        content = content.replace('</FONT></SUB>', '</sub>')
+        content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace">')
+        content = content.replace('</FONT></U>', '</em>')
+        content = content.replace('<I>', '<em class="translation">')
+        content = content.replace('</I>', '</em>')
+        content = content.replace('<B>', '<strong class="lojban">')
+        content = content.replace('</B>', '</strong>')
+        content = content.replace('&gt;&gt;', '&raquo;')
+        content = content.replace('&lt;&lt;', '&laquo;')
+        content = content.replace('<P>', '<br />')
     
+
     return True, content
 
 def asdf():
@@ -74,7 +92,7 @@ def asdf():
 @app.route('/')
 def index():
     text = request.args.get('text', "coi pilno mi'e jboski")
-    mode = request.args.get('mode', "contracted")
+    mode = request.args.get('mode', "condensed")
     grammatical = False
     parsed = ''
     try:

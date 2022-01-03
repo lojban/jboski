@@ -30,7 +30,13 @@ $(document).ready(function() {
 
     var jboText = $("#input").val();
     var mode = $("#mode").val();
-    ajaxRequest = $.getJSON("", { mode: mode, text: jboText, json: true }, function(json) {
+    let params;
+    if (jboText) {
+      params = { mode: mode, text: jboText, json: true };
+    } else {
+      params = { mode: mode, json: true };
+    }
+    ajaxRequest = $.getJSON("", params, function(json) {
       $("#output").html(json.html);
       
       if (json.grammatical) {
@@ -40,7 +46,11 @@ $(document).ready(function() {
         if (typeof(window.history) !== "undefined") {
           var link = $("<a/>")[0];
           link.href = window.location.href;
-          link.search = "?mode=" + escape(mode) + "&text=" + escape(jboText);
+          if (jboText) {
+            link.search = "?mode=" + escape(mode) + "&text=" + escape(jboText);
+          } else {
+            link.search = "?mode=" + escape(mode);
+          }
 
           var title = jboText + " -- jboski";
           history.replaceState(null, title, link.href);
