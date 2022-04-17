@@ -26,13 +26,18 @@ def parse(text):
     p.stdin.close()
     child_stdout = p.stdout.read()
     child_stderr = p.stderr.read()
+
+    parsed=True
+    extra_content=''
     
     if len(child_stderr) > 0:
-        return False, '<pre class="translationerror">' + child_stderr.decode() + '</pre>'
+        parsed=False
+        extra_content = '<pre class="translationerror">' + child_stderr.decode() + '</pre><br />'
     
     content = child_stdout.decode()
     content = re.sub(r'^.*<BODY>\s*\n', '', content, flags=re.DOTALL)
     content = re.sub(r'</BODY>\s*$', '', content, flags=re.DOTALL)
+    content = extra_content + content
     content = content.replace('<SUB><FONT SIZE="-3">', '<sub class="parenmark">')
     content = content.replace('</FONT></SUB>', '</sub>')
     content = content.replace('<U><FONT SIZE=-1>', '<em class="sumtiplace">')
@@ -45,7 +50,7 @@ def parse(text):
     content = content.replace('&lt;&lt;', '&laquo;')
     content = content.replace('<P>', '<br />')
     
-    return True, content
+    return parsed, content
 
 @app.route('/')
 def index():
