@@ -8,11 +8,11 @@ FROM docker.io/library/python:3.9
 RUN apt-get update && apt-get install -y default-jre-headless vim flex bison
 
 # Download and install jbofihe
-RUN cd /tmp ; wget https://github.com/lojban/jbofihe/archive/v0.43.tar.gz ; tar -zxvf v0.43.tar.gz
+RUN cd /tmp ; wget https://github.com/lojban/jbofihe/archive/v0.44.tar.gz ; tar -zxvf v0.44.tar.gz
 
-RUN cd /tmp/jbofihe-0.43 ; perl config.pl --prefix=/usr/local
-RUN cd /tmp/jbofihe-0.43 ; make all
-RUN cd /tmp/jbofihe-0.43 ; make install
+RUN cd /tmp/jbofihe-0.44 ; perl config.pl --prefix=/usr/local
+RUN cd /tmp/jbofihe-0.44 ; make all
+RUN cd /tmp/jbofihe-0.44 ; make install
 
 # Download and install all the python bits
 RUN pip install --upgrade pip
